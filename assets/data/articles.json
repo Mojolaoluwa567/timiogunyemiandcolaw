@@ -1,0 +1,64 @@
+{
+  "articles": [
+    {
+      "slug": "startup-act",
+      "title": "Understanding Nigeria's Startup Act: What Founders Need to Know",
+      "tag": "Startup & VC Advisory",
+      "author": "Timi Ogunyemi",
+      "date": "2026-06-12",
+      "readTime": "6 min read",
+      "cover": "assets/lawyer-at-desk.jpg",
+      "excerpt": "A practical breakdown of what Startup Act designation actually changes for a growing company \u2014 and what it doesn't.",
+      "featured": true,
+      "body": "<p>Nigeria's Startup Act is frequently discussed but rarely explained in terms founders can actually act on. Here is what changes in practice once a company holds Startup Act designation, and \u2014 just as importantly \u2014 what does not.</p><h3>What designation actually unlocks</h3><p>Labelled companies gain access to specific tax incentives, easier engagement with regulators through the Startup Support and Engagement Portal, and eligibility for the Startup Investment Seed Fund. These are real, usable benefits, but they are not automatic \u2014 each requires its own separate application once the base designation is secured.</p><h3>What it does not do</h3><p>Designation is not a shortcut around company registration, tax filing obligations, or sector-specific licensing. A fintech startup with Startup Act status still needs its CBN or SEC approvals; an agritech company still needs its NAFDAC clearances where applicable. The Act sits alongside existing regulatory frameworks, not above them.</p><h3>Who should actually apply</h3><p>Designation makes the most sense for companies already past first revenue or funding, since several of the attached benefits are structured around scale rather than idea-stage ventures. For very early founders, the application effort is often better spent on getting the company's foundational documents \u2014 cap table, shareholder agreement, IP assignment \u2014 in order first.</p><p>If you're weighing whether Startup Act designation is worth pursuing for your company at its current stage, that's exactly the kind of conversation worth having before filing anything.</p>"
+    },
+    {
+      "slug": "term-sheets",
+      "title": "Term Sheets 101: Key Clauses Every Founder Should Understand",
+      "tag": "Startup & VC Advisory",
+      "author": "Timi Ogunyemi",
+      "date": "2026-05-28",
+      "readTime": "5 min read",
+      "cover": "assets/archive-review.jpg",
+      "excerpt": "Liquidation preference, anti-dilution, board composition \u2014 the handful of clauses that quietly decide who controls the company later.",
+      "featured": false,
+      "body": "<p>Most of a term sheet is standard language. A small handful of clauses, however, quietly determine who controls the company later \u2014 and founders often sign without fully weighing them.</p><h3>Liquidation preference</h3><p>This decides who gets paid first, and how much, when the company is sold or wound down. A 1x non-participating preference is founder-friendly; anything layered with participation rights compounds against the common shareholders \u2014 meaning the founders \u2014 in a modest exit.</p><h3>Anti-dilution protection</h3><p>Protects investors if a future round prices the company lower than this one. Broad-based weighted average is the market standard and reasonably fair to both sides; full ratchet protection is aggressive and can wipe out founder ownership in a down round.</p><h3>Board composition</h3><p>Control of the board is control of the company, regardless of who holds more shares. Founders should track board seats across every round, not just the current one \u2014 a founder-majority board at seed can become an investor-majority board by Series B if each round adds a new investor seat without a corresponding renegotiation.</p><p>None of these clauses are inherently unfair \u2014 they are simply where the real negotiation happens, underneath the headline valuation number everyone talks about.</p>"
+    },
+    {
+      "slug": "trademarks",
+      "title": "Trademark Protection: Why Early Registration Matters",
+      "tag": "Intellectual Property",
+      "author": "Prof. Tunji Ogunyemi",
+      "date": "2026-05-10",
+      "readTime": "4 min read",
+      "cover": "assets/columns-close.jpg",
+      "excerpt": "The cost of registering a brand early is a fraction of the cost of defending it after someone else already has.",
+      "featured": true,
+      "body": "<p>Trademark registration is one of the few areas of business law where the cost of acting early and the cost of acting late are not remotely comparable.</p><h3>Nigeria is a first-to-file jurisdiction</h3><p>Unlike some countries where prior use can establish rights, Nigeria's trademark system generally favours whoever files first. A business that has used a name for years without registering it can still lose the right to that name to a later entrant who files first \u2014 this happens more often than most founders expect.</p><h3>The real cost comparison</h3><p>Registering a trademark early is a modest, predictable cost. Discovering a conflict after your brand has traction \u2014 after you've printed packaging, run ad campaigns, built a customer base around a name \u2014 turns into a dispute, a possible rebrand, and legal fees that dwarf what registration would have cost at the outset.</p><h3>What to register, and when</h3><p>Register the name and any distinct logo mark as early as the brand direction is settled \u2014 ideally before significant marketing spend, not after. If you're expanding into new markets or product categories under the same brand, each new class of goods or services generally needs its own registration.</p>"
+    },
+    {
+      "slug": "ndpc",
+      "title": "NDPC Compliance: A Practical Guide for Data-Driven Businesses",
+      "tag": "Regulatory & Compliance",
+      "author": "Timi Ogunyemi",
+      "date": "2026-04-22",
+      "readTime": "7 min read",
+      "cover": "assets/gold-scales.jpg",
+      "excerpt": "What the Nigeria Data Protection Commission actually expects from companies collecting customer data \u2014 and where most fall short.",
+      "featured": true,
+      "body": "<p>The Nigeria Data Protection Commission has moved from a mostly advisory body to one that actively enforces the Nigeria Data Protection Act. Here is what that means in practice for a company collecting customer data.</p><h3>The basics most companies still miss</h3><p>A lawful basis for processing personal data, a published privacy policy that actually reflects what the company does with data (not a generic template), and a designated point of contact for data protection matters \u2014 these three items alone account for the majority of compliance gaps we encounter.</p><h3>Data Protection Impact Assessments</h3><p>Required for processing activities that carry higher risk \u2014 large-scale processing, sensitive personal data, or systematic monitoring. Many growing companies cross this threshold without realising it, particularly once they introduce behavioural tracking or third-party analytics tools.</p><h3>Cross-border data transfers</h3><p>If customer data leaves Nigeria \u2014 hosted on a foreign cloud server, processed by an overseas vendor \u2014 additional safeguards apply. This is one of the most commonly overlooked areas, especially for companies using popular but foreign-hosted SaaS tools by default.</p><p>Compliance here is not a one-time filing; it's an operational posture. The companies that manage it well treat it as part of how they build, not a form they complete once and forget.</p>"
+    },
+    {
+      "slug": "dispute-resolution",
+      "title": "Litigation vs Arbitration: Choosing the Right Forum",
+      "tag": "Dispute Resolution",
+      "author": "Timi Ogunyemi",
+      "date": "2026-03-30",
+      "readTime": "5 min read",
+      "cover": "assets/justice-gold-desk.jpg",
+      "excerpt": "Speed, confidentiality and enforceability don't always pull in the same direction \u2014 how to weigh them before a dispute even starts.",
+      "featured": false,
+      "body": "<p>The choice between litigation and arbitration is often made once, at the contract-drafting stage, long before any dispute exists \u2014 which makes it easy to get wrong by not thinking it through properly at the time.</p><h3>Speed</h3><p>Arbitration is generally faster than the court system, which can take years to reach final judgment once appeals are considered. But arbitration is only as fast as the arbitration clause is well-drafted \u2014 vague clauses around arbitrator selection or seat of arbitration can themselves become a source of delay and dispute.</p><h3>Confidentiality</h3><p>Court proceedings are public record. Arbitration is private by default, which matters considerably for disputes touching on trade secrets, sensitive commercial terms, or matters a company would rather not see reported.</p><h3>Enforceability</h3><p>This is where the calculus can flip. A Nigerian court judgment is straightforward to enforce within Nigeria. An arbitral award, particularly one seated abroad, can face genuine friction being enforced against Nigerian assets \u2014 despite Nigeria being party to the New York Convention, practical enforcement still involves its own process.</p><p>The right forum depends on where the other party's assets sit, how sensitive the underlying commercial relationship is, and how quickly a resolution is actually needed \u2014 not on which option sounds more modern.</p>"
+    }
+  ]
+}

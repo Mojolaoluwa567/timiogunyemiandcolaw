@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="pageTitle">Article — Timi Ogunyemi &amp; Co.</title>
+    <meta
+      id="pageDescription"
+      name="description"
+      content="Insights from Timi Ogunyemi & Co."
+    />
+    <link rel="alternate icon" href="assets/Layer 2.png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/locomotive-scroll.css" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <div class="nav-backdrop" id="navBackdrop"></div>
+
+    <!-- ================= HEADER ================= -->
+    <header id="siteHeader">
+      <div class="container">
+        <a
+          href="index.html"
+          class="mark"
+          aria-label="Timi Ogunyemi & Co. — home"
+        >
+          <img src="assets/logo-lockup.png" alt="Timi Ogunyemi & Co." />
+        </a>
+
+        <nav class="primary-nav" id="primaryNav">
+          <div class="mobile-nav-brand">
+            <img src="assets/logo-icon.png" alt="Timi Ogunyemi & Co." />
+          </div>
+
+          <div class="nav-group">
+            <span class="nav-group-title">The Firm</span>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="Our-people.html">Our People</a>
+          </div>
+
+          <div class="nav-group">
+            <span class="nav-group-title">Work With Us</span>
+            <a href="practice-areas.html">Practice Areas</a>
+            <a href="articles.html">Articles</a>
+          </div>
+
+          <a href="contact.html" class="mobile-nav-cta">
+            Let's Talk <span>→</span>
+          </a>
+
+          <div class="mobile-nav-social">
+            <a href="#" aria-label="LinkedIn">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4V8h4v1.5A6 6 0 0 1 16 8Z"
+                />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="1" />
+              </svg>
+            </a>
+            <a href="#" aria-label="X">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M4 4l16 16M20 4 4 20" />
+              </svg>
+            </a>
+          </div>
+        </nav>
+
+        <a href="contact.html" class="btn gold">Book a Consultation</a>
+
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          <span class="bar"></span><span class="bar"></span
+          ><span class="bar"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ================= ARTICLE (populated by assets/article-render.js) ================= -->
+    <main id="articleRoot">
+      <!-- Shown only if the slug in the URL doesn't match anything in articles.json -->
+      <section
+        class="section article-notfound"
+        id="articleNotFound"
+        style="display: none"
+      >
+        <div class="container" style="text-align: center">
+          <p class="kicker">ARTICLE NOT FOUND</p>
+          <h1 style="margin-top: 14px">We couldn't find that article.</h1>
+          <p style="margin: 18px auto 0; color: var(--text-soft)">
+            It may have been moved or unpublished.
+          </p>
+          <div style="margin-top: 28px">
+            <a href="articles.html" class="btn gold">Back to Articles</a>
+          </div>
+        </div>
+      </section>
+
+      <article id="articleContent" style="display: none">
+        <!-- ---- Hero ---- -->
+        <section class="article-hero">
+          <div class="container">
+            <a href="articles.html" class="article-back" data-scroll
+              >← Back to Articles</a
+            >
+            <span class="kicker" id="articleTag" data-scroll></span>
+            <h1 id="articleTitle" data-scroll style="margin-top: 14px"></h1>
+            <div class="article-hero-meta" data-scroll>
+              <span id="articleAuthor"></span>
+              <span class="dot">•</span>
+              <span id="articleDate"></span>
+              <span class="dot">•</span>
+              <span id="articleReadTime"></span>
+            </div>
+          </div>
+          <div
+            class="article-hero-media"
+            data-scroll
+            data-scroll-speed="0.12"
+            data-scroll-fade-only
+          >
+            <img id="articleCover" src="" alt="" />
+          </div>
+        </section>
+
+        <!-- ---- Body ---- -->
+        <section class="section article-body-section">
+          <div class="container article-body-layout">
+            <div class="article-body" id="articleBody" data-scroll></div>
+
+            <aside class="article-side">
+              <div class="sidebar-block" data-scroll>
+                <h4>Share this article</h4>
+                <div class="article-share">
+                  <a id="shareLinkedIn" href="#" target="_blank" rel="noopener"
+                    >LinkedIn</a
+                  >
+                  <a id="shareTwitter" href="#" target="_blank" rel="noopener"
+                    >X (Twitter)</a
+                  >
+                  <a id="shareCopy" href="#">Copy Link</a>
+                </div>
+              </div>
+              <div class="sidebar-block" data-scroll>
+                <h4>Talk to us about this</h4>
+                <p
+                  style="
+                    color: var(--text-soft);
+                    font-size: 0.9rem;
+                    margin-bottom: 16px;
+                  "
+                >
+                  Have a matter that touches on this? We're happy to talk it
+                  through.
+                </p>
+                <a
+                  href="contact.html"
+                  class="btn gold"
+                  style="width: 100%; justify-content: center"
+                >
+                  Book a Consultation
+                </a>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <!-- ---- Related ---- -->
+        <section class="section onDark article-related-section">
+          <div class="container">
+            <div class="pillar-rule" data-scroll>
+              <span></span><span></span>
+            </div>
+            <p class="kicker" data-scroll>KEEP READING</p>
+            <h2 data-scroll style="margin-top: 14px; color: var(--white)">
+              More on this topic
+            </h2>
+            <div
+              class="article-related-grid stagger"
+              id="relatedArticles"
+            ></div>
+          </div>
+        </section>
+      </article>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <a href="index.html" class="mark"
+              ><img src="assets/logo-lockup.png" alt="Timi Ogunyemi & Co."
+            /></a>
+            <p class="about-line">
+              Corporate and commercial counsel for founders and enterprises
+              building in and beyond Nigeria.
+            </p>
+            <div class="footer-social">
+              <a href="#" aria-label="LinkedIn"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4V8h4v1.5A6 6 0 0 1 16 8Z"
+                  />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" /></svg
+              ></a>
+              <a href="#" aria-label="Instagram"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" /></svg
+              ></a>
+              <a href="#" aria-label="X"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M4 4l16 16M20 4 4 20" /></svg
+              ></a>
+            </div>
+          </div>
+          <div>
+            <h5>QUICK LINKS</h5>
+            <ul>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="practice-areas.html">Practice Areas</a></li>
+              <li><a href="Our-people.html">Our People</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5>PRACTICE AREAS</h5>
+            <ul>
+              <li>
+                <a href="practice-areas.html">Corporate &amp; Commercial</a>
+              </li>
+              <li>
+                <a href="practice-areas.html">Startup &amp; VC Advisory</a>
+              </li>
+              <li><a href="practice-areas.html">Intellectual Property</a></li>
+              <li><a href="practice-areas.html">Dispute Resolution</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5>CONTACT</h5>
+            <ul>
+              <li>Victoria Island, Lagos, Nigeria</li>
+              <li>+234 800 000 0000</li>
+              <li>hello@timiogunyemi.law</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>&copy; 2026 Timi Ogunyemi &amp; Co. All rights reserved.</span>
+          <span
+            ><a href="#">Privacy Notice</a> &nbsp;·&nbsp;
+            <a href="#">Terms of Use</a></span
+          >
+        </div>
+      </div>
+      <p class="footer-disclaimer">
+        This website is for general information purposes only and does not
+        constitute legal advice. Viewing or using this site, or submitting an
+        enquiry through it, does not create an attorney-client relationship with
+        Timi Ogunyemi &amp; Co. Please contact us directly to discuss the
+        specifics of your matter.
+      </p>
+    </footer>
+
+    <script>
+      window.lenis = null;
+    </script>
+    <script src="assets/locomotive-lenis.min.js"></script>
+    <script>
+      window.lenis = window.Lenis;
+    </script>
+    <script src="assets/locomotive-scroll.umd.js"></script>
+    <!-- Converts the Markdown written in the admin panel into HTML for display.
+         Falls back gracefully if a script blocker prevents it from loading —
+         see the isMarkedLoaded check in article-render.js. -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="assets/article-render.js"></script>
+    <script src="assets/main.js"></script>
+  </body>
+</html>
