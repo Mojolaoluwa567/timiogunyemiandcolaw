@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Article Editor — Admin — Timi Ogunyemi &amp; Co.</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="alternate icon" href="../assets/Layer 2.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css" />
+    <link rel="stylesheet" href="../assets/styles.css" />
+    <link rel="stylesheet" href="../assets/admin.css" />
+  </head>
+  <body class="admin-body" style="display: none">
+    <header class="admin-topbar">
+      <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
+        <div class="admin-brand">
+          <img src="../assets/logo-icon.png" alt="" onerror="this.style.display='none'" />
+          <span>Timi Ogunyemi &amp; Co. — Admin</span>
+        </div>
+        <div class="admin-topbar-right">
+          <span class="admin-user-email" data-user-email></span>
+          <a href="dashboard.html" class="admin-logout">← Back to Articles</a>
+          <a href="#" class="admin-logout" data-logout>Sign Out</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <div class="admin-header-row">
+        <h1 id="editorTitle">New Article</h1>
+        <a href="#" id="previewLink" target="_blank" class="admin-logout" style="display: none;">
+          Preview ↗
+        </a>
+      </div>
+
+      <div class="admin-editor-grid">
+        <!-- ---- Main content ---- -->
+        <div>
+          <div class="admin-panel">
+            <h4>Article Details</h4>
+
+            <div class="admin-form-field">
+              <label for="fieldTitle">Title</label>
+              <input type="text" id="fieldTitle" placeholder="e.g. Understanding Nigeria's Startup Act" />
+            </div>
+
+            <div class="admin-form-field">
+              <label for="fieldSlug">URL Slug</label>
+              <input type="text" id="fieldSlug" placeholder="startup-act" />
+              <p class="admin-hint">
+                Auto-filled from the title. Lowercase letters, numbers, and hyphens only — must be unique.
+              </p>
+            </div>
+
+            <div class="admin-form-row">
+              <div class="admin-form-field">
+                <label for="fieldTag">Practice Area</label>
+                <select id="fieldTag">
+                  <option>Corporate &amp; Commercial</option>
+                  <option>Startup &amp; VC Advisory</option>
+                  <option>Intellectual Property</option>
+                  <option>Regulatory &amp; Compliance</option>
+                  <option>Dispute Resolution</option>
+                  <option>Tax Advisory</option>
+                </select>
+              </div>
+              <div class="admin-form-field">
+                <label for="fieldAuthor">Author</label>
+                <input type="text" id="fieldAuthor" value="Timi Ogunyemi" />
+              </div>
+            </div>
+
+            <div class="admin-form-row">
+              <div class="admin-form-field">
+                <label for="fieldDate">Publish Date</label>
+                <input type="date" id="fieldDate" />
+              </div>
+              <div class="admin-form-field">
+                <label for="fieldReadTime">Read Time</label>
+                <input type="text" id="fieldReadTime" placeholder="5 min read" value="5 min read" />
+              </div>
+            </div>
+
+            <div class="admin-form-field">
+              <label for="fieldExcerpt">Short Summary</label>
+              <textarea id="fieldExcerpt" placeholder="1-2 sentences shown on the Articles list page."></textarea>
+            </div>
+
+            <div class="admin-form-field admin-checkbox-field">
+              <input type="checkbox" id="fieldFeatured" />
+              <label for="fieldFeatured" style="margin: 0;">Show in Editor's Picks</label>
+            </div>
+          </div>
+
+          <div class="admin-panel">
+            <h4>Cover Image</h4>
+            <div class="admin-cover-upload" id="coverUploadBox">
+              <img id="coverPreview" style="display: none" />
+              <span class="admin-cover-upload-placeholder" id="coverPlaceholder">
+                Click to upload a cover image<br />(landscape, at least 1200px wide)
+              </span>
+              <input type="file" id="coverInput" accept="image/*" />
+            </div>
+          </div>
+
+          <div class="admin-panel">
+            <h4>Article Content</h4>
+            <div id="quillEditor"></div>
+          </div>
+        </div>
+
+        <!-- ---- Sidebar actions ---- -->
+        <div class="admin-editor-actions">
+          <div class="admin-panel">
+            <div class="admin-status-indicator" id="statusIndicator">Status: Draft</div>
+            <button class="btn ghost" id="saveDraftBtn" style="width: 100%; justify-content: center; margin-bottom: 10px;">
+              Save Draft
+            </button>
+            <button class="btn gold" id="publishBtn">Publish</button>
+            <div class="admin-save-msg" id="saveMsg"></div>
+          </div>
+
+          <div class="admin-panel" id="deletePanel" style="display: none;">
+            <h4>Danger Zone</h4>
+            <button class="btn ghost" id="deleteBtn" style="width: 100%; justify-content: center; color: #c0392b; border-color: #c0392b;">
+              Delete This Article
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/supabase-client.js"></script>
+    <script src="../assets/admin-guard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const articleId = params.get("id");
+      let uploadedCoverUrl = "";
+      let currentStatus = "draft";
+
+      const quill = new Quill("#quillEditor", {
+        theme: "snow",
+        modules: {
+          toolbar: [
+            [{ header: [2, 3, false] }],
+            ["bold", "italic", "underline"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["blockquote", "link", "image"],
+            ["clean"],
+          ],
+        },
+      });
+
+      // ---- Quill image uploads go straight to Supabase Storage ----
+      quill.getModule("toolbar").addHandler("image", () => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.onchange = async () => {
+          const file = input.files[0];
+          if (!file) return;
+          const url = await uploadImage(file);
+          if (url) {
+            const range = quill.getSelection(true);
+            quill.insertEmbed(range.index, "image", url);
+          }
+        };
+        input.click();
+      });
+
+      async function uploadImage(file) {
+        const path = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.\-_]/g, "")}`;
+        const { error } = await window.supabaseClient.storage
+          .from("article-images")
+          .upload(path, file);
+        if (error) {
+          alert("Image upload failed: " + error.message);
+          return null;
+        }
+        const { data } = window.supabaseClient.storage
+          .from("article-images")
+          .getPublicUrl(path);
+        return data.publicUrl;
+      }
+
+      // ---- Cover image upload ----
+      document.getElementById("coverInput").addEventListener("change", async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const placeholder = document.getElementById("coverPlaceholder");
+        placeholder.textContent = "Uploading...";
+        const url = await uploadImage(file);
+        if (url) {
+          uploadedCoverUrl = url;
+          const preview = document.getElementById("coverPreview");
+          preview.src = url;
+          preview.style.display = "block";
+          placeholder.style.display = "none";
+        } else {
+          placeholder.textContent = "Click to upload a cover image (landscape, at least 1200px wide)";
+        }
+      });
+
+      // ---- Slug auto-fill from title (only if the user hasn't typed a custom slug) ----
+      let slugManuallyEdited = false;
+      document.getElementById("fieldSlug").addEventListener("input", () => {
+        slugManuallyEdited = true;
+      });
+      document.getElementById("fieldTitle").addEventListener("input", (e) => {
+        if (slugManuallyEdited) return;
+        document.getElementById("fieldSlug").value = e.target.value
+          .toLowerCase()
+          .trim()
+          .replace(/[^a-z0-9\s-]/g, "")
+          .replace(/\s+/g, "-")
+          .replace(/-+/g, "-");
+      });
+
+      function collectFormData() {
+        return {
+          title: document.getElementById("fieldTitle").value.trim(),
+          slug: document.getElementById("fieldSlug").value.trim(),
+          tag: document.getElementById("fieldTag").value,
+          author: document.getElementById("fieldAuthor").value.trim() || "Timi Ogunyemi",
+          publish_date: document.getElementById("fieldDate").value || new Date().toISOString().slice(0, 10),
+          read_time: document.getElementById("fieldReadTime").value.trim() || "5 min read",
+          excerpt: document.getElementById("fieldExcerpt").value.trim(),
+          featured: document.getElementById("fieldFeatured").checked,
+          cover_url: uploadedCoverUrl,
+          body: quill.root.innerHTML,
+        };
+      }
+
+      function showSaveMsg(text, isError) {
+        const msg = document.getElementById("saveMsg");
+        msg.textContent = text;
+        msg.className = "admin-save-msg show " + (isError ? "error" : "success");
+        setTimeout(() => msg.classList.remove("show"), 3500);
+      }
+
+      function validate(data) {
+        if (!data.title) return "Title is required.";
+        if (!data.slug) return "URL slug is required.";
+        if (!/^[a-z0-9-]+$/.test(data.slug)) {
+          return "Slug can only contain lowercase letters, numbers, and hyphens.";
+        }
+        return null;
+      }
+
+      async function saveArticle(status) {
+        const data = collectFormData();
+        const validationError = validate(data);
+        if (validationError) {
+          showSaveMsg(validationError, true);
+          return;
+        }
+        data.status = status;
+
+        let result;
+        if (articleId) {
+          result = await window.supabaseClient
+            .from("articles")
+            .update(data)
+            .eq("id", articleId)
+            .select()
+            .single();
+        } else {
+          result = await window.supabaseClient
+            .from("articles")
+            .insert(data)
+            .select()
+            .single();
+        }
+
+        if (result.error) {
+          if (result.error.message.includes("duplicate") || result.error.code === "23505") {
+            showSaveMsg("That slug is already used by another article — pick a different one.", true);
+          } else {
+            showSaveMsg("Couldn't save: " + result.error.message, true);
+          }
+          return;
+        }
+
+        currentStatus = status;
+        document.getElementById("statusIndicator").textContent =
+          "Status: " + (status === "published" ? "Published" : "Draft");
+        showSaveMsg(status === "published" ? "Published!" : "Draft saved.", false);
+
+        // If this was a brand-new article, switch the URL to include its
+        // new id so subsequent saves update it instead of creating duplicates.
+        if (!articleId && result.data) {
+          window.history.replaceState({}, "", `editor.html?id=${result.data.id}`);
+          setupPreviewAndDelete(result.data.id, data.slug);
+        }
+      }
+
+      document.getElementById("saveDraftBtn").addEventListener("click", () => saveArticle("draft"));
+      document.getElementById("publishBtn").addEventListener("click", () => saveArticle("published"));
+
+      function setupPreviewAndDelete(id, slug) {
+        const previewLink = document.getElementById("previewLink");
+        previewLink.href = `../article.html?slug=${encodeURIComponent(slug)}&preview=1`;
+        previewLink.style.display = "inline-block";
+
+        document.getElementById("deletePanel").style.display = "block";
+        document.getElementById("deleteBtn").onclick = async () => {
+          if (!confirm("Delete this article permanently? This can't be undone.")) return;
+          const { error } = await window.supabaseClient.from("articles").delete().eq("id", id);
+          if (!error) window.location.href = "dashboard.html";
+        };
+      }
+
+      async function loadExisting() {
+        if (!articleId) {
+          document.getElementById("fieldDate").value = new Date().toISOString().slice(0, 10);
+          return;
+        }
+
+        document.getElementById("editorTitle").textContent = "Edit Article";
+        const { data, error } = await window.supabaseClient
+          .from("articles")
+          .select("*")
+          .eq("id", articleId)
+          .single();
+
+        if (error || !data) {
+          alert("Couldn't load that article.");
+          window.location.href = "dashboard.html";
+          return;
+        }
+
+        document.getElementById("fieldTitle").value = data.title;
+        document.getElementById("fieldSlug").value = data.slug;
+        slugManuallyEdited = true;
+        document.getElementById("fieldTag").value = data.tag;
+        document.getElementById("fieldAuthor").value = data.author;
+        document.getElementById("fieldDate").value = data.publish_date;
+        document.getElementById("fieldReadTime").value = data.read_time;
+        document.getElementById("fieldExcerpt").value = data.excerpt;
+        document.getElementById("fieldFeatured").checked = data.featured;
+        quill.root.innerHTML = data.body || "";
+
+        if (data.cover_url) {
+          uploadedCoverUrl = data.cover_url;
+          const preview = document.getElementById("coverPreview");
+          preview.src = data.cover_url;
+          preview.style.display = "block";
+          document.getElementById("coverPlaceholder").style.display = "none";
+        }
+
+        currentStatus = data.status;
+        document.getElementById("statusIndicator").textContent =
+          "Status: " + (data.status === "published" ? "Published" : "Draft");
+
+        setupPreviewAndDelete(data.id, data.slug);
+      }
+
+      loadExisting();
+    </script>
+  </body>
+</html>

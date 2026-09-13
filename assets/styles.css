@@ -3789,3 +3789,219 @@ body.team-loop-page {
     min-height: 90px;
   }
 }
+
+/* ==========================================================================
+   ARTICLES LIST PAGE v2 — hero pills, trending list, insights grid, FAQ
+   ========================================================================== */
+
+/* Hero filter pills */
+.hero-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.filter-pill {
+  font-size: 0.84rem;
+  color: var(--text-soft);
+  padding: 9px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  white-space: nowrap;
+  transition:
+    border-color 0.25s ease,
+    color 0.25s ease,
+    background 0.25s ease;
+}
+.filter-pill:hover {
+  border-color: var(--gold-deep);
+  color: var(--ink);
+}
+.filter-pill.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+
+/* Trending list */
+.trending-section {
+  padding-top: 70px;
+  padding-bottom: 40px;
+}
+.trending-count {
+  color: var(--text-soft);
+  font-weight: 400;
+  font-size: 0.7em;
+}
+.trending-list {
+  border-top: 1px solid var(--line);
+}
+.trending-item {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 32px;
+  align-items: center;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--line);
+}
+.trending-item-text .article-tag {
+  margin-bottom: 8px;
+}
+.trending-item-text h3 {
+  font-size: 1.4rem;
+  line-height: 1.3;
+  margin-bottom: 10px;
+  transition: opacity 0.25s ease;
+}
+.trending-item:hover h3 {
+  opacity: 0.65;
+}
+.trending-item-text p {
+  color: var(--text-soft);
+  font-size: 0.96rem;
+  margin: 0;
+}
+.trending-item-media {
+  height: 150px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.trending-item-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+.trending-item:hover .trending-item-media img {
+  transform: scale(1.05);
+}
+@media (max-width: 700px) {
+  .trending-item {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .trending-item-media {
+    order: -1;
+    height: 200px;
+  }
+}
+
+/* Insights grid (dark) */
+.insights-grid-section {
+  padding-top: 80px;
+}
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 20px;
+}
+.insight-card {
+  display: block;
+  background: #14110d;
+  border: 1px solid var(--line-onDark);
+  border-radius: 14px;
+  padding: 22px;
+  transition:
+    transform 0.35s cubic-bezier(0.16, 0.84, 0.44, 1),
+    border-color 0.3s ease;
+}
+.insight-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-deep);
+}
+.insight-card-media {
+  height: 170px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.insight-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.insight-card:hover .insight-card-media img {
+  transform: scale(1.05);
+}
+.insight-card .article-tag {
+  margin-bottom: 8px;
+}
+.insight-card h3 {
+  color: var(--white);
+  font-size: 1.12rem;
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+.insight-card p {
+  color: var(--text-onDark-soft);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+.insight-card-link {
+  color: var(--gold);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+@media (max-width: 900px) {
+  .insights-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .insights-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* FAQ */
+.articles-faq-section {
+  background: var(--off);
+}
+.articles-faq-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 60px;
+  align-items: start;
+}
+.articles-faq-grid h2 {
+  font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+  line-height: 1.2;
+}
+.faq-list {
+  border-top: 1px solid var(--line);
+}
+.faq-item {
+  border-bottom: 1px solid var(--line);
+}
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 4px;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-q {
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--ink);
+}
+.faq-a {
+  padding: 0 4px 22px;
+}
+.faq-a p {
+  color: var(--text-soft);
+  margin: 0;
+}
+@media (max-width: 800px) {
+  .articles-faq-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}

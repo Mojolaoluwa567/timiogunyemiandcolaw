@@ -3,25 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Content Admin — Timi Ogunyemi &amp; Co.</title>
+    <title>Admin Login — Timi Ogunyemi &amp; Co.</title>
+    <meta name="robots" content="noindex, nofollow" />
     <link rel="alternate icon" href="../assets/Layer 2.png" />
-    <!-- Required so Netlify Identity can log the client in -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/styles.css" />
+    <link rel="stylesheet" href="../assets/admin.css" />
   </head>
-  <body>
-    <!-- Decap CMS (formerly Netlify CMS) -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <body class="admin-body">
+    <div class="admin-login">
+      <div class="admin-login-card">
+        <div class="admin-login-mark">
+          <img src="../assets/logo-lockup.png" alt="Timi Ogunyemi & Co." />
+        </div>
+        <h1>Admin Login</h1>
+        <p class="admin-login-sub">Sign in to manage articles.</p>
+
+        <div class="admin-error" id="loginError"></div>
+
+        <form id="loginForm">
+          <div class="admin-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="username" required />
+          </div>
+          <div class="admin-field">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" autocomplete="current-password" required />
+          </div>
+          <button type="submit" class="btn gold" id="loginBtn">Sign In</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/supabase-client.js"></script>
     <script>
-      // Redirects the Netlify Identity login flow back to this admin page.
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
+      const form = document.getElementById("loginForm");
+      const errorEl = document.getElementById("loginError");
+      const btn = document.getElementById("loginBtn");
+
+      // If already logged in, skip straight to the dashboard.
+      window.supabaseClient.auth.getSession().then(({ data }) => {
+        if (data.session) window.location.href = "dashboard.html";
+      });
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        errorEl.classList.remove("show");
+        btn.disabled = true;
+        btn.textContent = "Signing in...";
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+
+        const { error } = await window.supabaseClient.auth.signInWithPassword({
+          email,
+          password,
         });
-      }
+
+        if (error) {
+          errorEl.textContent =
+            "Couldn't sign in — check your email and password and try again.";
+          errorEl.classList.add("show");
+          btn.disabled = false;
+          btn.textContent = "Sign In";
+          return;
+        }
+
+        window.location.href = "dashboard.html";
+      });
     </script>
   </body>
 </html>

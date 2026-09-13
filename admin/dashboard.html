@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Articles — Admin — Timi Ogunyemi &amp; Co.</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="alternate icon" href="../assets/Layer 2.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/styles.css" />
+    <link rel="stylesheet" href="../assets/admin.css" />
+  </head>
+  <!-- Hidden until admin-guard.js confirms a valid session, to avoid a
+       flash of admin UI before an unauthenticated redirect can happen. -->
+  <body class="admin-body" style="display: none">
+    <header class="admin-topbar">
+      <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
+        <div class="admin-brand">
+          <img src="../assets/logo-icon.png" alt="" onerror="this.style.display='none'" />
+          <span>Timi Ogunyemi &amp; Co. — Admin</span>
+        </div>
+        <div class="admin-topbar-right">
+          <span class="admin-user-email" data-user-email></span>
+          <a href="../articles.html" target="_blank" class="admin-logout">View Site ↗</a>
+          <a href="#" class="admin-logout" data-logout>Sign Out</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <div class="admin-header-row">
+        <h1>Articles</h1>
+        <a href="editor.html" class="btn gold">+ New Article</a>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-filter="all">
+          All <span class="count" id="countAll"></span>
+        </button>
+        <button class="admin-tab" data-filter="published">
+          Published <span class="count" id="countPublished"></span>
+        </button>
+        <button class="admin-tab" data-filter="draft">
+          Drafts <span class="count" id="countDraft"></span>
+        </button>
+      </div>
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Practice Area</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="articleRows">
+          <tr>
+            <td colspan="5" class="admin-empty">Loading articles...</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/supabase-client.js"></script>
+    <script src="../assets/admin-guard.js"></script>
+    <script>
+      let allArticles = [];
+      let currentFilter = "all";
+
+      function formatDate(iso) {
+        const d = new Date(iso + "T00:00:00");
+        if (isNaN(d)) return iso;
+        return d.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        });
+      }
+
+      function renderRows() {
+        const rows = document.getElementById("articleRows");
+        const filtered =
+          currentFilter === "all"
+            ? allArticles
+            : allArticles.filter((a) => a.status === currentFilter);
+
+        if (filtered.length === 0) {
+          rows.innerHTML = `<tr><td colspan="5" class="admin-empty">No articles here yet.</td></tr>`;
+          return;
+        }
+
+        rows.innerHTML = filtered
+          .map(
+            (a) => `
+          <tr>
+            <td class="admin-row-title"><a href="editor.html?id=${a.id}">${a.title}</a></td>
+            <td>${a.tag}</td>
+            <td><span class="admin-status-pill ${a.status}">${a.status}</span></td>
+            <td>${formatDate(a.publish_date)}</td>
+            <td>
+              <div class="admin-row-actions">
+                <a href="editor.html?id=${a.id}">Edit</a>
+                <button data-toggle-status="${a.id}" data-current="${a.status}">
+                  ${a.status === "published" ? "Unpublish" : "Publish"}
+                </button>
+                <button class="danger" data-delete="${a.id}">Delete</button>
+              </div>
+            </td>
+          </tr>`,
+          )
+          .join("");
+      }
+
+      function updateCounts() {
+        document.getElementById("countAll").textContent = `(${allArticles.length})`;
+        document.getElementById("countPublished").textContent =
+          `(${allArticles.filter((a) => a.status === "published").length})`;
+        document.getElementById("countDraft").textContent =
+          `(${allArticles.filter((a) => a.status === "draft").length})`;
+      }
+
+      async function loadArticles() {
+        const { data, error } = await window.supabaseClient
+          .from("articles")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          document.getElementById("articleRows").innerHTML =
+            `<tr><td colspan="5" class="admin-empty">Couldn't load articles: ${error.message}</td></tr>`;
+          return;
+        }
+
+        allArticles = data;
+        updateCounts();
+        renderRows();
+      }
+
+      document.querySelectorAll(".admin-tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          document.querySelectorAll(".admin-tab").forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+          currentFilter = tab.dataset.filter;
+          renderRows();
+        });
+      });
+
+      document.getElementById("articleRows").addEventListener("click", async (e) => {
+        const toggleBtn = e.target.closest("[data-toggle-status]");
+        const deleteBtn = e.target.closest("[data-delete]");
+
+        if (toggleBtn) {
+          const id = toggleBtn.dataset.toggleStatus;
+          const newStatus = toggleBtn.dataset.current === "published" ? "draft" : "published";
+          const { error } = await window.supabaseClient
+            .from("articles")
+            .update({ status: newStatus })
+            .eq("id", id);
+          if (!error) loadArticles();
+        }
+
+        if (deleteBtn) {
+          const id = deleteBtn.dataset.delete;
+          if (!confirm("Delete this article permanently? This can't be undone.")) return;
+          const { error } = await window.supabaseClient.from("articles").delete().eq("id", id);
+          if (!error) loadArticles();
+        }
+      });
+
+      loadArticles();
+    </script>
+  </body>
+</html>
