@@ -135,7 +135,9 @@
   border: 1px solid var(--line-onDark);
   padding: 8px 16px;
   border-radius: 999px;
-  transition: border-color 0.25s ease, color 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    color 0.25s ease;
 }
 .admin-logout:hover {
   border-color: var(--gold-deep);
@@ -172,7 +174,9 @@
   font-weight: 600;
   color: var(--text-soft);
   border-bottom: 2px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 .admin-tab:hover {
   color: var(--ink);
@@ -437,5 +441,50 @@
   }
   .admin-form-row {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Responsive admin topbar + table ---------- */
+@media (max-width: 700px) {
+  .admin-topbar .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .admin-brand {
+    flex-wrap: wrap;
+  }
+  .admin-brand span {
+    font-size: 0.62rem;
+    line-height: 1.5;
+  }
+  .admin-topbar-right {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .admin-user-email {
+    width: 100%;
+    font-size: 0.78rem;
+    word-break: break-all;
+  }
+  .admin-logout {
+    font-size: 0.78rem;
+    padding: 7px 14px;
+  }
+
+  .admin-main {
+    padding: 32px 18px 70px;
+  }
+  .admin-header-row h1 {
+    font-size: 1.35rem;
+  }
+
+  .admin-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .admin-table {
+    min-width: 620px; /* keeps columns readable — scrolls horizontally instead of squashing */
   }
 }
