@@ -369,13 +369,16 @@
   object-fit: cover;
   position: absolute;
   inset: 0;
+  pointer-events: none; /* same fix — clicks need to reach the file input, not the image */
 }
+
 .admin-cover-upload-placeholder {
   color: var(--text-soft);
   font-size: 0.86rem;
   text-align: center;
   position: relative;
   z-index: 1;
+  pointer-events: none; /* lets clicks pass through to the file input beneath it */
 }
 .admin-cover-upload input[type="file"] {
   position: absolute;
