@@ -452,6 +452,7 @@ nav.primary-nav a.active::after {
 nav.primary-nav a.active {
   color: var(--gold-deep);
 }
+
 .nav-toggle {
   display: none;
   background: none;

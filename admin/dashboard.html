@@ -19,14 +19,27 @@
        flash of admin UI before an unauthenticated redirect can happen. -->
   <body class="admin-body" style="display: none">
     <header class="admin-topbar">
-      <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
+      <div
+        class="container"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        "
+      >
         <div class="admin-brand">
-          <img src="../assets/logo-icon.png" alt="" onerror="this.style.display='none'" />
+          <img
+            src="../assets/logo-icon.png"
+            alt=""
+            onerror="this.style.display = 'none'"
+          />
           <span>Timi Ogunyemi &amp; Co. — Admin</span>
         </div>
         <div class="admin-topbar-right">
           <span class="admin-user-email" data-user-email></span>
-          <a href="../articles.html" target="_blank" class="admin-logout">View Site ↗</a>
+          <a href="../articles.html" target="_blank" class="admin-logout"
+            >Back to Articles ↗</a
+          >
           <a href="#" class="admin-logout" data-logout>Sign Out</a>
         </div>
       </div>
@@ -50,22 +63,24 @@
         </button>
       </div>
 
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Practice Area</th>
-            <th>Status</th>
-            <th>Date</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="articleRows">
-          <tr>
-            <td colspan="5" class="admin-empty">Loading articles...</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Practice Area</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="articleRows">
+            <tr>
+              <td colspan="5" class="admin-empty">Loading articles...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -120,7 +135,8 @@
       }
 
       function updateCounts() {
-        document.getElementById("countAll").textContent = `(${allArticles.length})`;
+        document.getElementById("countAll").textContent =
+          `(${allArticles.length})`;
         document.getElementById("countPublished").textContent =
           `(${allArticles.filter((a) => a.status === "published").length})`;
         document.getElementById("countDraft").textContent =
@@ -146,34 +162,45 @@
 
       document.querySelectorAll(".admin-tab").forEach((tab) => {
         tab.addEventListener("click", () => {
-          document.querySelectorAll(".admin-tab").forEach((t) => t.classList.remove("active"));
+          document
+            .querySelectorAll(".admin-tab")
+            .forEach((t) => t.classList.remove("active"));
           tab.classList.add("active");
           currentFilter = tab.dataset.filter;
           renderRows();
         });
       });
 
-      document.getElementById("articleRows").addEventListener("click", async (e) => {
-        const toggleBtn = e.target.closest("[data-toggle-status]");
-        const deleteBtn = e.target.closest("[data-delete]");
+      document
+        .getElementById("articleRows")
+        .addEventListener("click", async (e) => {
+          const toggleBtn = e.target.closest("[data-toggle-status]");
+          const deleteBtn = e.target.closest("[data-delete]");
 
-        if (toggleBtn) {
-          const id = toggleBtn.dataset.toggleStatus;
-          const newStatus = toggleBtn.dataset.current === "published" ? "draft" : "published";
-          const { error } = await window.supabaseClient
-            .from("articles")
-            .update({ status: newStatus })
-            .eq("id", id);
-          if (!error) loadArticles();
-        }
+          if (toggleBtn) {
+            const id = toggleBtn.dataset.toggleStatus;
+            const newStatus =
+              toggleBtn.dataset.current === "published" ? "draft" : "published";
+            const { error } = await window.supabaseClient
+              .from("articles")
+              .update({ status: newStatus })
+              .eq("id", id);
+            if (!error) loadArticles();
+          }
 
-        if (deleteBtn) {
-          const id = deleteBtn.dataset.delete;
-          if (!confirm("Delete this article permanently? This can't be undone.")) return;
-          const { error } = await window.supabaseClient.from("articles").delete().eq("id", id);
-          if (!error) loadArticles();
-        }
-      });
+          if (deleteBtn) {
+            const id = deleteBtn.dataset.delete;
+            if (
+              !confirm("Delete this article permanently? This can't be undone.")
+            )
+              return;
+            const { error } = await window.supabaseClient
+              .from("articles")
+              .delete()
+              .eq("id", id);
+            if (!error) loadArticles();
+          }
+        });
 
       loadArticles();
     </script>
