@@ -14,10 +14,8 @@ const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRob3FqaG5wdHdteG1xb2h1YXh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkyOTk5NTksImV4cCI6MjEwNDg3NTk1OX0.mvBc2BcbXl7_EFiCvPoLd56Yf-hg51JvB3Ua35ombBM";
 
 if (
-  SUPABASE_URL.includes("https://dhoqjhnptwmxmqohuaxz.supabase.co") ||
-  SUPABASE_ANON_KEY.includes(
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRob3FqaG5wdHdteG1xb2h1YXh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkyOTk5NTksImV4cCI6MjEwNDg3NTk1OX0.mvBc2BcbXl7_EFiCvPoLd56Yf-hg51JvB3Ua35ombBM",
-  )
+  SUPABASE_URL.includes("YOUR-PROJECT-REF") ||
+  SUPABASE_ANON_KEY.includes("YOUR-ANON-PUBLIC-KEY")
 ) {
   console.warn(
     "Supabase is not configured yet — edit assets/supabase-client.js with your project's URL and anon key.",

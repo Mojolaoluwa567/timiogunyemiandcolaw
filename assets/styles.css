@@ -3860,7 +3860,27 @@ body.team-loop-page {
 .trending-item-text p {
   color: var(--text-soft);
   font-size: 0.96rem;
-  margin: 0;
+  margin: 0 0 12px;
+  transition: color 0.3s ease;
+}
+
+.trending-item-text p:hover {
+  color: var(--text);
+}
+
+.trending-item-link {
+  color: var(--gold-deep);
+  font-size: 0.86rem;
+  font-weight: 600;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+  display: inline-block;
+}
+
+.trending-item-link:hover {
+  color: var(--black);
+  transform: translateX(4px);
 }
 .trending-item-media {
   height: 150px;

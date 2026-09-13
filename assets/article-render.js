@@ -35,7 +35,7 @@
   function relatedCardHTML(article) {
     const href = `article.html?slug=${encodeURIComponent(article.slug)}`;
     return `
-      <a href="${href}" class="article-related-card" data-scroll>
+      <a href="${href}" class="article-related-card">
         <div class="article-related-media">
           <img src="${article.cover_url || "assets/lawyer-at-desk.jpg"}" alt="" />
         </div>
@@ -50,7 +50,10 @@
   }
 
   async function fetchArticle() {
-    let query = window.supabaseClient.from("articles").select("*").eq("slug", slug);
+    let query = window.supabaseClient
+      .from("articles")
+      .select("*")
+      .eq("slug", slug);
     // Ordinary visitors only ever see published articles — RLS enforces
     // this server-side too, but filtering here avoids a confusing
     // "not found" vs "exists but hidden" distinction in the UI logic.
@@ -82,7 +85,8 @@
     // ---- Draft banner when previewing ----
     if (isPreview && article.status === "draft") {
       const banner = document.createElement("div");
-      banner.textContent = "PREVIEW — this article is still a draft and is not visible to site visitors.";
+      banner.textContent =
+        "PREVIEW — this article is still a draft and is not visible to site visitors.";
       banner.style.cssText =
         "position:sticky;top:0;z-index:50;background:#e0b84c;color:#1a1300;text-align:center;padding:10px;font-family:var(--sans);font-weight:600;font-size:0.85rem;";
       document.body.prepend(banner);
@@ -96,8 +100,11 @@
     // ---- Hero ----
     document.getElementById("articleTag").textContent = article.tag;
     document.getElementById("articleTitle").textContent = article.title;
-    document.getElementById("articleAuthor").textContent = `By ${article.author}`;
-    document.getElementById("articleDate").textContent = formatDate(article.publish_date);
+    document.getElementById("articleAuthor").textContent =
+      `By ${article.author}`;
+    document.getElementById("articleDate").textContent = formatDate(
+      article.publish_date,
+    );
     document.getElementById("articleReadTime").textContent = article.read_time;
 
     const coverImg = document.getElementById("articleCover");
