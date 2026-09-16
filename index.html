@@ -120,6 +120,19 @@
 
     <!-- ================= HERO ================= -->
     <section class="hero">
+      <div
+        class="hero-bg"
+        data-scroll
+        data-scroll-speed="-0.25"
+        data-scroll-fade-only
+      >
+        <img
+          src="assets/grand-columns-interior.jpg"
+          alt="Grand columned interior, low angle"
+        />
+      </div>
+      <div class="hero-scrim" aria-hidden="true"></div>
+
       <div class="container">
         <div class="pillar-rule"><span></span><span></span></div>
         <div class="kicker-badge">
@@ -129,20 +142,13 @@
         <h1>We Don't Just Practice Law.<br />We <em>Elevate</em> It.</h1>
         <div class="hero-ctas">
           <a href="contact.html" class="btn gold pill">Request Legal Help</a>
-          <a href="practice-areas.html" class="btn ghost pill"
+          <a href="practice-areas.html" class="btn ghost on-dark pill"
             >Explore Our Services →</a
           >
         </div>
       </div>
 
       <div class="hero-visual">
-        <div class="hero-parallax" data-scroll data-scroll-speed="-0.35">
-          <img
-            src="assets/grand-columns-interior.jpg"
-            alt="Grand columned interior, low angle"
-          />
-        </div>
-
         <div class="hero-overlay-bottom1">
           <p>
             At Timi Ogunyemi & Co., we provide thoughtful legal counsel grounded
@@ -244,10 +250,14 @@
             <div class="flank-rule"></div>
             <p>Integrity is our foundation. Excellence is our pursuit.</p>
             <div class="flank-media">
-              <img
-                src="assets/gold-scales.jpg"
-                alt="Scales of justice, gold detail"
-              />
+              <video
+                src="assets/video/videos1.mp4"
+                controls
+                autoplay
+                muted
+                loop
+                playsinline
+              ></video>
             </div>
           </div>
 
@@ -732,13 +742,16 @@
             </div>
           </div>
           <div class="testimonial-feature">
-            <img
-              src="assets/justice-bronze-wide.jpg"
-              alt="Bronze scales of justice statue"
-              data-scroll
-              data-scroll-speed="0.2"
-              data-scroll-fade-only
-            />
+            <video
+              src="./assets/video/video3.mp4"
+              width="500"
+              controls
+              autoplay
+              muted
+              loop
+              playsinline
+            ></video>
+
             <div class="content">
               <blockquote>
                 "Our compliance position was a mess before we brought them in.
@@ -750,6 +763,23 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ================= LATEST INSIGHTS (auto-hides when empty) ================= -->
+    <section
+      class="section latest-insights"
+      id="latestInsights"
+      style="display: none"
+    >
+      <div class="container">
+        <div class="about-head">
+          <p class="kicker" data-scroll>LATEST INSIGHTS</p>
+          <a href="articles.html" class="about-more" data-scroll
+            >ALL ARTICLES ↘</a
+          >
+        </div>
+        <div class="latest-insights-grid" id="latestInsightsGrid"></div>
       </div>
     </section>
 
@@ -908,6 +938,7 @@
       window.lenis = window.Lenis;
     </script>
     <script src="assets/locomotive-scroll.umd.js"></script>
+    <script src="assets/home-articles.js"></script>
     <script src="assets/main.js"></script>
   </body>
 </html>
