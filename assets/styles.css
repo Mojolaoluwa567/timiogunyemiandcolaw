@@ -833,16 +833,17 @@ footer ul a:hover {
 }
 
 /* ==========================================================================
-   HOME PAGE
+   HOME PAGE — HERO
    ========================================================================== */
 .hero {
   position: relative;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding-top: 160px;
-  padding-bottom: 0;
+  padding-bottom: 60px;
   background: var(--ink);
   overflow: hidden;
   isolation: isolate;
@@ -852,15 +853,38 @@ footer ul a:hover {
   inset: 0;
   z-index: 0;
 }
-.hero-bg img {
+.hero-slide-img {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.hero-slide-img.active {
+  opacity: 1;
+  z-index: 1;
+}
+.hero-slide-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   filter: grayscale(12%) contrast(1.03);
+  transform: scale(1);
 }
-.hero-bg[data-scroll] {
-  opacity: 1;
-  transition: none;
+.hero-slide-img img.zooming {
+  animation: heroKenBurns 9s ease-out forwards;
+}
+@keyframes heroKenBurns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.09);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide-img img.zooming {
+    animation: none;
+  }
 }
 .hero-scrim {
   position: absolute;
@@ -879,12 +903,13 @@ footer ul a:hover {
   z-index: 2;
   max-width: 900px;
   text-align: center;
-  margin-bottom: 56px;
+  margin: 0 auto 56px;
 }
 .hero h1 {
-  font-size: clamp(2.4rem, 5.4vw, 4.4rem);
+  font-size: clamp(2rem, 5.4vw, 4.4rem);
   line-height: 1.1;
   color: var(--white);
+  word-wrap: break-word;
 }
 .hero h1 em {
   font-style: normal;
@@ -902,334 +927,129 @@ footer ul a:hover {
   color: var(--text-onDark);
   margin-bottom: 26px;
 }
+.hero-caption {
+  margin: 18px auto 0;
+  max-width: 46ch;
+  font-size: 1.05rem;
+  color: var(--white);
+}
+.hero-ctas {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
 
-/* Transparent content layer over the shared background */
+/* ---- quote card + tag list (desktop: absolute, layered on the hero) ---- */
 .hero-visual {
   position: relative;
   z-index: 2;
-  min-height: 560px;
+  min-height: 300px;
   padding: 0 36px 60px;
   background: transparent;
   overflow: visible;
 }
-.hero-visual::after {
-  display: none;
-}
-
-/* -------------------------------------------------------
-   HERO PARALLAX LAYER
-   Locomotive moves this layer, NOT the image itself.
-   The parent .hero-visual remains the clipping window.
-   ------------------------------------------------------- */
-
-.hero-overlay-bottom {
-  position: absolute;
-  left: 36px;
-  bottom: 204px;
-  z-index: 2;
-  display: flex;
-  align-items: flex-end;
-  gap: 16px;
-  max-width: 400px;
-}
-
-.hero-overlay-bottom1 {
-  position: absolute;
-  left: 36px;
-  bottom: 450px;
-  z-index: 2;
-  display: flex;
-  align-items: flex-end;
-  gap: 16px;
-  max-width: 400px;
-}
-
-.hero-chip {
-  width: 52px;
-  height: 52px;
-  flex-shrink: 0;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--line-onDark);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.hero-chip img {
-  width: 22px;
-  height: 22px;
-}
-.hero-overlay-bottom p {
-  color: var(--text-onDark);
-  font-size: 1rem;
-  margin: 0;
-  line-height: 1.55;
-}
-
-.hero-overlay-bottom1 p {
-  color: var(--text-onDark);
-  font-size: 1rem;
-  margin: 0;
-  line-height: 1.55;
-}
-
 .hero-frame {
   position: absolute;
-
-  /* LOWER THAN BEFORE */
   right: 36px;
-  top: 150px;
-
+  top: 0;
   z-index: 3;
-
-  /* BIGGER */
-  width: 600px;
+  width: min(600px, 42vw);
   height: 300px;
-
   padding: 28px 30px;
-
   box-sizing: border-box;
-
-  /* DARKER BACKGROUND */
   background: rgba(5, 5, 5, 0.82);
-
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-
-  /* NO GOLD OUTLINE */
   border: none;
-
   overflow: hidden;
-
   box-shadow:
     0 25px 60px rgba(0, 0, 0, 0.45),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
-
-/* ─────────────────────────
-   SLIDER
-───────────────────────── */
-
+.hero-frame::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 55px;
+  background: var(--gold);
+  opacity: 0.8;
+}
 .quote-slider {
   position: relative;
-
   width: 100%;
   height: 100%;
 }
-
-/* ─────────────────────────
-   EACH QUOTE
-───────────────────────── */
-
 .quote-slide {
   position: absolute;
-
   inset: 0;
-
   padding: 0;
-
   display: flex;
   flex-direction: column;
-
   opacity: 0;
-
   transform: translateY(18px);
-
   transition:
     opacity 0.8s ease,
     transform 0.8s ease;
-
   pointer-events: none;
 }
-
 .quote-slide.active {
   opacity: 1;
-
   transform: translateY(0);
-
   pointer-events: auto;
 }
-
-/* ─────────────────────────
-   NUMBER
-───────────────────────── */
-
 .quote-number {
   position: absolute;
-
   top: 0;
   right: 0;
-
   font-family: var(--sans);
-
   font-size: 0.5rem;
-
   letter-spacing: 0.14em;
-
   color: rgba(255, 255, 255, 0.35);
 }
-
-/* ─────────────────────────
-   LABEL
-───────────────────────── */
-
 .quote-label {
   display: block;
-
   font-family: var(--sans);
-
   font-size: 0.55rem;
-
   font-weight: 600;
-
   letter-spacing: 0.18em;
-
   color: var(--gold);
-
   margin-bottom: 22px;
 }
-
-/* ─────────────────────────
-   QUOTE
-───────────────────────── */
-
 .quote-slide blockquote {
   margin: 0;
-
   max-width: 315px;
-
   font-family: var(--serif);
-
   font-size: 1.55rem;
-
   font-weight: 400;
-
   line-height: 1.3;
-
   letter-spacing: -0.015em;
-
   color: rgba(255, 255, 255, 0.94);
 }
-
 .quote-slide blockquote em {
   color: var(--gold);
-
   font-style: italic;
 }
-
-/* ─────────────────────────
-   SOURCE
-───────────────────────── */
-
 .quote-source {
   margin-top: auto;
-
   padding-top: 16px;
-
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-
   width: 100%;
-
   font-family: var(--sans);
-
   font-size: 0.48rem;
-
   font-weight: 600;
-
   letter-spacing: 0.15em;
-
   color: rgba(255, 255, 255, 0.4);
 }
 
-/* ─────────────────────────
-   SUBTLE GOLD ACCENT
-───────────────────────── */
-
-.hero-frame::before {
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-  top: 0;
-
-  width: 3px;
-  height: 55px;
-
-  background: var(--gold);
-
-  opacity: 0.8;
-}
-
-/* ─────────────────────────
-   MOBILE
-───────────────────────── */
-
-@media (max-width: 900px) {
-  .hero {
-    min-height: auto;
-    padding-top: 130px;
-    padding-bottom: 0;
-  }
-  .hero .container {
-    margin-bottom: 40px;
-  }
-  .hero-frame,
-  .hero-tag-grid {
-    display: none;
-  }
-  .hero-visual {
-    min-height: 0;
-    padding: 0 20px 60px;
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-  }
-  /* Both overlay blocks were absolutely positioned at fixed pixel offsets
-     built for a tall desktop hero — on mobile that pushed them off-screen
-     and overlapped them. Letting them stack in normal flow fixes both. */
-  .hero-overlay-bottom,
-  .hero-overlay-bottom1 {
-    position: static;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    max-width: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero {
-    padding-top: 110px;
-  }
-
-  .hero-visual {
-    padding: 0 18px 48px;
-    margin-top: -10rem; /* moves the hero visual upward */
-    gap: 22px;
-  }
-
-  .hero-overlay-bottom p,
-  .hero-overlay-bottom1 p {
-    font-size: 1.1rem;
-  }
-
-  .hero-ctas {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
-
-  .hero-ctas .btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
 .hero-tag-grid {
   position: absolute;
   right: 36px;
-  bottom: 34px;
+  bottom: 40px;
   z-index: 2;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1255,31 +1075,74 @@ footer ul a:hover {
   border-radius: 50%;
   background: var(--gold);
 }
-@media (max-width: 800px) {
-  .hero-frame,
-  .hero-tag-grid {
-    display: none;
+
+/* ---- tablet / mobile: reflow into normal document flow instead of hiding ---- */
+@media (max-width: 900px) {
+  .hero {
+    min-height: auto;
+    padding-top: 130px;
+    padding-bottom: 48px;
   }
+  .hero .container {
+    margin-bottom: 40px;
+  }
+  .hero-caption {
+    font-size: 0.95rem;
+  }
+  .hero-ctas {
+    margin-top: 26px;
+  }
+
   .hero-visual {
-    height: auto;
-    min-height: 70vh;
-    padding: 100px 20px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    gap: 20px;
-  }
-  /* Both overlay text blocks were absolutely positioned at fixed pixel
-     offsets designed for a tall desktop hero — on mobile that caused them
-     to overlap or run off the edge of the screen. Un-positioning them and
-     letting them stack naturally in document flow fixes both at once. */
-  .hero-overlay-bottom,
-  .hero-overlay-bottom1 {
     position: static;
-    left: auto;
+    min-height: 0;
+    padding: 0 24px;
+    display: flex;
+    justify-content: center;
+  }
+  .hero-frame {
+    position: relative;
     right: auto;
-    bottom: auto;
+    top: auto;
+    width: 100%;
+    max-width: 440px;
+    height: auto;
+    min-height: 220px;
+  }
+
+  .hero-tag-grid {
+    position: static;
+    margin: 28px auto 0;
+    max-width: 440px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding-top: 160px;
+  }
+  .hero-frame {
+    padding: 22px 20px;
+    min-height: 200px;
+  }
+  .quote-slide blockquote {
+    font-size: 1.3rem;
     max-width: none;
+  }
+  .hero-tag-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    text-align: left;
+  }
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .hero-ctas .btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 
@@ -2410,6 +2273,399 @@ form.consult-form textarea:focus {
 }
 
 /* ==========================================================================
+   OUR PEOPLE PAGE — Editorial Dossier + Directory Ledger
+   ========================================================================== */
+
+/* ---- hero ---- */
+.people-hero {
+  padding: 170px 0 70px;
+  background: var(--paper);
+}
+.people-hero h1 {
+  font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+  line-height: 1.1;
+  max-width: 16ch;
+}
+.people-hero-lede {
+  margin-top: 20px;
+  font-size: 1.05rem;
+  color: var(--text-soft);
+  max-width: 56ch;
+}
+
+/* ---- dossier (leadership) ---- */
+.dossier {
+  background: var(--ink);
+  padding: 90px 0;
+}
+.dossier-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line-onDark);
+  margin-bottom: 10px;
+}
+.dossier-head .kicker {
+  color: var(--gold);
+}
+.dossier-count {
+  font-family: var(--serif);
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  color: var(--text-onDark-soft);
+}
+
+.dossier-entry {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--line-onDark);
+  padding: 56px 0;
+}
+.dossier-entry:last-child {
+  border-bottom: 0;
+}
+.dossier-num {
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.05em;
+  padding-top: 6px;
+}
+
+.dossier-body {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.dossier-portrait {
+  width: 220px;
+  height: 260px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.dossier-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  filter: grayscale(30%) contrast(1.05);
+}
+.dossier-portrait--mono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gold-deep);
+  background: #0e0c09;
+}
+.dossier-portrait--mono span {
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+}
+
+.dossier-role {
+  display: block;
+  font-family: var(--serif);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.dossier-text h2 {
+  color: var(--white);
+  font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+  margin-bottom: 16px;
+}
+.dossier-text p {
+  color: var(--text-onDark-soft);
+  max-width: 60ch;
+  margin-bottom: 22px;
+}
+.dossier-quote {
+  margin: 0 0 26px;
+  padding-left: 18px;
+  border-left: 2px solid var(--gold-deep);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--white);
+  max-width: 46ch;
+}
+.dossier-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.86rem;
+  letter-spacing: 0.03em;
+  color: var(--gold);
+  border-bottom: 1px solid var(--gold-deep);
+  padding-bottom: 3px;
+  transition: gap 0.3s ease;
+}
+.dossier-link:hover {
+  gap: 14px;
+}
+
+@media (max-width: 900px) {
+  .dossier-entry {
+    grid-template-columns: 1fr;
+    padding: 40px 0;
+  }
+  .dossier-num {
+    margin-bottom: 16px;
+  }
+  .dossier-body {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .dossier-portrait {
+    width: 100%;
+    height: 320px;
+  }
+}
+
+/* ---- ledger (associates) ---- */
+.ledger {
+  background: var(--off);
+  padding: 90px 0;
+}
+.ledger-head {
+  margin-bottom: 30px;
+}
+.ledger-head h2 {
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  margin-top: 12px;
+}
+
+.ledger-list {
+  border-top: 1px solid var(--line);
+}
+.ledger-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 280px 1fr 90px 24px;
+  align-items: center;
+  gap: 24px;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--line);
+  transition: padding-left 0.3s ease;
+}
+.ledger-row:hover {
+  padding-left: 12px;
+}
+.ledger-row-main {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+}
+.ledger-row-num {
+  font-family: var(--serif);
+  font-size: 0.8rem;
+  color: var(--gold-deep);
+  letter-spacing: 0.06em;
+}
+.ledger-row-text h3 {
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+.ledger-row-role {
+  font-family: var(--serif);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+}
+.ledger-row-focus {
+  color: var(--text-soft);
+  font-size: 0.92rem;
+  margin: 0;
+}
+.ledger-row-photo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.85);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+.ledger-row:hover .ledger-row-photo {
+  opacity: 1;
+  transform: scale(1);
+}
+.ledger-row-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  filter: grayscale(15%);
+}
+.ledger-row-arrow {
+  color: var(--gold-deep);
+  font-size: 1.1rem;
+  justify-self: end;
+  transition: transform 0.3s ease;
+}
+.ledger-row:hover .ledger-row-arrow {
+  transform: translateX(4px);
+}
+
+.ledger-note {
+  margin-top: 30px;
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .ledger-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "main photo"
+      "focus focus"
+      "arrow arrow";
+    row-gap: 12px;
+  }
+  .ledger-row-main {
+    grid-area: main;
+  }
+  .ledger-row-photo {
+    grid-area: photo;
+    opacity: 1;
+    transform: none;
+  }
+  .ledger-row-focus {
+    grid-area: focus;
+  }
+  .ledger-row-arrow {
+    grid-area: arrow;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 480px) {
+  .people-hero {
+    padding-top: 130px;
+  }
+  .dossier,
+  .ledger {
+    padding: 60px 0;
+  }
+}
+
+/* ==========================================================================
+   TALK CTA — bordered split panel, no rounded dark card
+   ========================================================================== */
+.talk-cta {
+  background: var(--paper);
+  padding: 100px 0;
+}
+
+.talk-cta-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid var(--ink);
+}
+.talk-cta-heading h2 {
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  line-height: 1.15;
+  margin-top: 14px;
+}
+.talk-cta-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.talk-cta-copy p {
+  color: var(--text-soft);
+  font-size: 1.02rem;
+  max-width: 48ch;
+  margin-bottom: 28px;
+}
+.talk-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* ---- contact strip ---- */
+.talk-cta-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.talk-cta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 34px 28px;
+  border-right: 1px solid var(--line);
+  transition: background 0.3s ease;
+}
+.talk-cta-item:last-child {
+  border-right: 0;
+}
+.talk-cta-item:hover {
+  background: var(--off);
+}
+.talk-cta-label {
+  font-family: var(--serif);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.talk-cta-value {
+  font-size: 1.15rem;
+  color: var(--ink);
+  transition: transform 0.3s ease;
+}
+.talk-cta-item:hover .talk-cta-value {
+  transform: translateX(4px);
+}
+
+@media (max-width: 900px) {
+  .talk-cta {
+    padding: 70px 0;
+  }
+  .talk-cta-top {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-bottom: 36px;
+  }
+  .talk-cta-strip {
+    grid-template-columns: 1fr;
+  }
+  .talk-cta-item {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 26px 4px;
+  }
+  .talk-cta-item:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .talk-cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .talk-cta-actions .btn {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
    PRACTICE AREAS PAGE
    ========================================================================== */
 
@@ -2461,8 +2717,8 @@ form.consult-form textarea:focus {
   display: grid;
   grid-template-columns: 1fr 1fr;
   background: var(--ink);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 5% 100%, 0 85%);
-  min-height: 60vh;
+
+  min-height: 67vh;
 }
 .pa-hero-band-copy {
   padding: 90px 60px 90px 32px;

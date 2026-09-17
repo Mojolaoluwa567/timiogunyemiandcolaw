@@ -119,116 +119,73 @@
     </header>
 
     <!-- ================= HERO ================= -->
-    <section class="hero">
-      <div
-        class="hero-bg"
-        data-scroll
-        data-scroll-speed="-0.25"
-        data-scroll-fade-only
-      >
-        <img
-          src="assets/grand-columns-interior.jpg"
-          alt="Grand columned interior, low angle"
-        />
+    <section class="hero" id="heroSection">
+      <div class="hero-bg" id="heroBg">
+        <div class="hero-slide-img active">
+          <img
+            src="assets/grand-columns-interior.jpg"
+            alt="Grand columned interior, low angle"
+          />
+        </div>
+        <div class="hero-slide-img">
+          <img
+            src="assets/front-view-blurry-lawyer-working.jpg"
+            alt="Statue of justice with scales in a law library"
+          />
+        </div>
+        <div class="hero-slide-img">
+          <img
+            src="assets/chruch-cathedral-christ-sanctuary-spirituality.jpg"
+            alt="Cathedral sanctuary interior"
+          />
+        </div>
       </div>
       <div class="hero-scrim" aria-hidden="true"></div>
 
       <div class="container">
-        <div class="pillar-rule"><span></span><span></span></div>
-        <div class="kicker-badge">
-          <span class="dot"></span> Trusted Guidance &nbsp;·&nbsp; Strong Legal
-          Protection
-        </div>
-        <h1>We Don't Just Practice Law.<br />We <em>Elevate</em> It.</h1>
-        <div class="hero-ctas">
-          <a href="contact.html" class="btn gold pill">Request Legal Help</a>
-          <a href="practice-areas.html" class="btn ghost on-dark pill"
-            >Explore Our Services →</a
-          >
+        <div class="hero-text-stack" id="heroTextStack">
+          <div class="kicker-badge">
+            <span class="dot"></span>
+            <span id="heroKickerText"
+              >Trusted Guidance &nbsp;·&nbsp; Strong Legal Protection</span
+            >
+          </div>
+          <h1 id="heroHeadline">
+            We Practice law<br />With <em>Purpose</em> It.
+          </h1>
+          <p class="hero-caption" id="heroCaption">
+            Corporate counsel built for the moments that define a business.
+          </p>
+          <div class="hero-ctas">
+            <a href="contact.html" class="btn gold pill">Request Legal Help</a>
+            <a href="practice-areas.html" class="btn ghost on-dark pill"
+              >Explore Our Services →</a
+            >
+          </div>
         </div>
       </div>
 
       <div class="hero-visual">
-        <div class="hero-overlay-bottom1">
-          <p>
-            At Timi Ogunyemi & Co., we provide thoughtful legal counsel grounded
-            in a clear understanding of our clients, their businesses and the
-            environments in which they operate. Our approach combines legal
-            precision with practical commercial judgment to help clients make
-            confident decisions.
-          </p>
-        </div>
-
-        <div class="hero-overlay-bottom">
-          <p>
-            We advise founders, companies and institutions across key areas of
-            corporate and commercial law, from business formation and
-            transactions to intellectual property, regulatory compliance and
-            dispute resolution. Our role is to protect our clients' interests
-            while helping them navigate complexity and pursue opportunities with
-            clarity.
-          </p>
-        </div>
-
         <div class="hero-frame">
-          <div class="quote-slider">
+          <div class="quote-slider" id="quoteSlider">
             <div class="quote-slide active">
-              <span class="quote-number">01 / 04</span>
-              <span class="quote-label">OUR APPROACH</span>
-
-              <blockquote>
-                “Where there is complexity,
-                <em>there must be clarity.</em>”
+              <span class="quote-number" id="quoteNumber">01 / 03</span>
+              <span class="quote-label" id="quoteLabel">OUR APPROACH</span>
+              <blockquote id="quoteText">
+                "Where there is complexity, <em>there must be clarity.</em>"
               </blockquote>
-
-              <span class="quote-source"> Timi Ogunyemi &amp; Co. </span>
-            </div>
-
-            <div class="quote-slide">
-              <span class="quote-number">02 / 04</span>
-              <span class="quote-label">LEGAL COUNSEL</span>
-
-              <blockquote>
-                “Good counsel protects today
-                <em>while preparing for tomorrow.</em>”
-              </blockquote>
-
-              <span class="quote-source"> Timi Ogunyemi &amp; Co. </span>
-            </div>
-
-            <div class="quote-slide">
-              <span class="quote-number">03 / 04</span>
-              <span class="quote-label">OUR PRINCIPLE</span>
-
-              <blockquote>
-                “Strong legal strategy begins
-                <em>with understanding.</em>”
-              </blockquote>
-
-              <span class="quote-source"> Timi Ogunyemi &amp; Co. </span>
-            </div>
-
-            <div class="quote-slide">
-              <span class="quote-number">04 / 04</span>
-              <span class="quote-label">OUR COMMITMENT</span>
-
-              <blockquote>
-                “We don't simply resolve problems.
-                <em>We create certainty.</em>”
-              </blockquote>
-
-              <span class="quote-source"> Timi Ogunyemi &amp; Co. </span>
+              <span class="quote-source">Timi Ogunyemi &amp; Co.</span>
             </div>
           </div>
         </div>
-
-        <div class="hero-tag-grid">
-          <span>Corporate &amp; Commercial Law</span>
-          <span>Startup &amp; VC Advisory</span>
-          <span>Intellectual Property</span>
-          <span>Dispute Resolution</span>
-        </div>
       </div>
+      <div class="hero-tag-grid">
+        <span>Corporate &amp; Commercial Law</span>
+        <span>Startup &amp; VC Advisory</span>
+        <span>Intellectual Property</span>
+        <span>Dispute Resolution</span>
+      </div>
+      <div></div>
     </section>
 
     <!-- ================= ABOUT THE FIRM (home) ================= -->
@@ -252,7 +209,6 @@
             <div class="flank-media">
               <video
                 src="assets/video/videos1.mp4"
-                controls
                 autoplay
                 muted
                 loop
@@ -263,9 +219,9 @@
 
           <div class="about-hero" data-scroll data-scroll-fade-up="0.4">
             <p class="about-hero-intro">
-              A young firm, built with the discipline of an old one founded not
-              on inherited prestige, but on vision, purpose and precision in
-              every matter we take on.
+              At Timi Ogunyemi & Co., we provide thoughtful legal counsel
+              grounded in a clear understanding of our clients, their businesses
+              and the environments in which they operate.
             </p>
           </div>
 
@@ -745,7 +701,6 @@
             <video
               src="./assets/video/video3.mp4"
               width="500"
-              controls
               autoplay
               muted
               loop
@@ -763,6 +718,61 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+    <!-- ================= MEET THE TEAM (home) ================= -->
+    <section class="section team-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="pillar-rule" data-scroll><span></span><span></span></div>
+          <p class="kicker" data-scroll>MEET OUR PEOPLE</p>
+          <h2 data-scroll style="margin-top: 14px">
+            The counsel behind the firm
+          </h2>
+        </div>
+
+        <div class="team-grid">
+          <div class="team-card team-card--feature" data-scroll>
+            <div class="team-photo">
+              <img
+                src="assets/HBA_9529.jpg"
+                alt="Timi Ogunyemi, Founding and Managing Partner"
+              />
+            </div>
+            <div class="team-info">
+              <h3>Timi Ogunyemi</h3>
+              <span class="team-role">Founding &amp; Managing Partner</span>
+              <p>
+                Timi founded the firm in 2024 with a clear purpose: to build a
+                modern, commercially minded practice delivering practical,
+                innovative, results-driven legal solutions.
+              </p>
+            </div>
+          </div>
+
+          <div class="team-card team-card--counsel" data-scroll>
+            <div class="team-avatar" aria-hidden="true">TO</div>
+            <div class="team-info">
+              <h3>Prof. Tunji Ogunyemi</h3>
+              <span class="team-role">Of Counsel</span>
+              <p>
+                Called to the Nigerian Bar in 2007, Professor Ogunyemi brings
+                nearly two decades of legal knowledge and strategic guidance to
+                the firm's practice.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p class="team-note" data-scroll>
+          Our growing team is supported by dedicated administrative
+          professionals across every practice area.
+          <a
+            href="Our-people.html"
+            style="color: var(--gold-deep); font-weight: 600"
+            >Meet the full team →</a
+          >
+        </p>
       </div>
     </section>
 
@@ -912,23 +922,6 @@
         specifics of your matter.
       </p>
     </footer>
-    <script>
-      const quoteSlides = document.querySelectorAll(".quote-slide");
-
-      let currentQuote = 0;
-
-      setInterval(() => {
-        quoteSlides[currentQuote].classList.remove("active");
-
-        currentQuote++;
-
-        if (currentQuote >= quoteSlides.length) {
-          currentQuote = 0;
-        }
-
-        quoteSlides[currentQuote].classList.add("active");
-      }, 5000);
-    </script>
 
     <script>
       window.lenis = null;
@@ -939,6 +932,7 @@
     </script>
     <script src="assets/locomotive-scroll.umd.js"></script>
     <script src="assets/home-articles.js"></script>
+    <script src="assets/hero-slideshow.js"></script>
     <script src="assets/main.js"></script>
   </body>
 </html>
