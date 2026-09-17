@@ -8,7 +8,7 @@
   const HERO_SLIDES = [
     {
       kicker: "Trusted Guidance &nbsp;&middot;&nbsp; Strong Legal Protection",
-      headline: "We Don't Just Practice Law.<br />We <em>Elevate</em> It.",
+      headline: "We Practice Law.<br />With<em>Purpose</em>.",
       caption:
         "Corporate counsel built for the moments that define a business.",
       quoteLabel: "OUR APPROACH",
