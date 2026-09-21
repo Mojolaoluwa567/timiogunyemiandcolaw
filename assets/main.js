@@ -28,7 +28,7 @@ if (hasPlayedIntro) {
           { once: true },
         );
       }
-    }, 700);
+    }, 1100);
   });
 }
 
