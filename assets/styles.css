@@ -3334,6 +3334,24 @@ body.team-loop-page {
 .profile-next-link:hover h2 {
   opacity: 0.75;
 }
+.profile-credentials {
+  list-style: none;
+  margin: 4px 0 22px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.profile-credentials li {
+  font-family: var(--serif);
+  font-size: 0.82rem;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+  color: var(--black);
+}
+.profile-detail-col h3 + h3 {
+  margin-top: 32px;
+}
 
 /* ==========================================================================
    ARTICLES LIST PAGE
