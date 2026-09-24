@@ -778,6 +778,10 @@ footer ul a {
   color: var(--text-onDark-soft);
   transition: color 0.25s ease;
 }
+
+.cng li {
+  font-size: 0.9rem;
+}
 footer ul a:hover {
   color: var(--gold);
 }
